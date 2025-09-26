@@ -1,0 +1,14 @@
+Enhanced F1 Dataset for XGBoost
+================================
+
+Generated: 2025-09-26 23:07:58.716360
+Records: 3318
+Features: 110
+Years: 2018-2025
+Total races: 166
+Unique drivers: 43
+FastF1 coverage: 71.3%
+
+Target variable: target_position (race finish position)
+Group key: group_key (year_round for XGBoost ranking)
+Use rank:pairwise objective in XGBoost

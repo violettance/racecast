@@ -45,44 +45,56 @@ class ErgastCollector(BaseCollector):
     def collect_results(self, year: int) -> pd.DataFrame:
         """Collect race results for a season."""
         url = f"{self.base_url}/{year}/results.json"
-        params = {'limit': 1000}  # Ensure we get all results
-        data = self._make_request(url, params)
         
         results = []
-        for race in data['MRData']['RaceTable']['Races']:
-            race_info = {
-                'year': int(race['season']),
-                'round': int(race['round']),
-                'race_name': race['raceName'],
-                'circuit_id': race['Circuit']['circuitId'],
-                'date': race['date']
-            }
+        offset = 0
+        limit = 100
+        
+        while True:
+            params = {'limit': limit, 'offset': offset}
+            data = self._make_request(url, params)
             
-            for result in race['Results']:
-                result_info = race_info.copy()
-                result_info.update({
-                    'position': int(result['position']) if result['position'].isdigit() else None,
-                    'position_text': result['positionText'],
-                    'points': float(result['points']),
-                    'driver_id': result['Driver']['driverId'],
-                    'driver_code': result['Driver']['code'],
-                    'driver_number': result['Driver']['permanentNumber'],
-                    'driver_first_name': result['Driver']['givenName'],
-                    'driver_last_name': result['Driver']['familyName'],
-                    'driver_nationality': result['Driver']['nationality'],
-                    'constructor_id': result['Constructor']['constructorId'],
-                    'constructor_name': result['Constructor']['name'],
-                    'constructor_nationality': result['Constructor']['nationality'],
-                    'grid': int(result['grid']) if result['grid'].isdigit() else None,
-                    'laps': int(result['laps']),
-                    'status': result['status'],
-                    'time_millis': int(result['Time']['millis']) if 'Time' in result else None,
-                    'time_text': result['Time']['time'] if 'Time' in result else None,
-                    'fastest_lap_rank': int(result['FastestLap']['rank']) if 'FastestLap' in result else None,
-                    'fastest_lap_time': result['FastestLap']['Time']['time'] if 'FastestLap' in result else None,
-                    'fastest_lap_speed': float(result['FastestLap']['AverageSpeed']['speed']) if 'FastestLap' in result else None
-                })
-                results.append(result_info)
+            races = data['MRData']['RaceTable']['Races']
+            if not races:  # No more data
+                break
+                
+            for race in races:
+                race_info = {
+                    'year': int(race['season']),
+                    'round': int(race['round']),
+                    'race_name': race['raceName'],
+                    'circuit_id': race['Circuit']['circuitId'],
+                    'date': race['date']
+                }
+                
+                for result in race['Results']:
+                    result_info = race_info.copy()
+                    result_info.update({
+                        'position': int(result['position']) if 'position' in result and result['position'].isdigit() else None,
+                        'position_text': result['positionText'],
+                        'points': float(result['points']),
+                        'driver_id': result['Driver']['driverId'],
+                        'driver_code': result['Driver']['code'],
+                        'driver_number': result['Driver']['permanentNumber'],
+                        'driver_first_name': result['Driver']['givenName'],
+                        'driver_last_name': result['Driver']['familyName'],
+                        'driver_nationality': result['Driver']['nationality'],
+                        'constructor_id': result['Constructor']['constructorId'],
+                        'constructor_name': result['Constructor']['name'],
+                        'constructor_nationality': result['Constructor']['nationality'],
+                        'grid': int(result['grid']) if result['grid'].isdigit() else None,
+                        'laps': int(result['laps']),
+                        'status': result['status'],
+                        'time_millis': int(result['Time']['millis']) if 'Time' in result else None,
+                        'time_text': result['Time']['time'] if 'Time' in result else None,
+                        'fastest_lap_rank': int(result['FastestLap']['rank']) if 'FastestLap' in result else None,
+                        'fastest_lap_time': result['FastestLap']['Time']['time'] if 'FastestLap' in result else None,
+                        'fastest_lap_speed': float(result['FastestLap']['AverageSpeed']['speed']) if 'FastestLap' in result and 'AverageSpeed' in result['FastestLap'] else None
+                    })
+                    results.append(result_info)
+            
+            # Update offset for next page
+            offset += limit
         
         df = pd.DataFrame(results)
         logger.info(f"Collected {len(df)} race results for {year}")
@@ -91,35 +103,47 @@ class ErgastCollector(BaseCollector):
     def collect_qualifying(self, year: int) -> pd.DataFrame:
         """Collect qualifying results for a season."""
         url = f"{self.base_url}/{year}/qualifying.json"
-        params = {'limit': 1000}
-        data = self._make_request(url, params)
         
         qualifying = []
-        for race in data['MRData']['RaceTable']['Races']:
-            race_info = {
-                'year': int(race['season']),
-                'round': int(race['round']),
-                'race_name': race['raceName'],
-                'circuit_id': race['Circuit']['circuitId'],
-                'date': race['date']
-            }
+        offset = 0
+        limit = 100
+        
+        while True:
+            params = {'limit': limit, 'offset': offset}
+            data = self._make_request(url, params)
             
-            for result in race['QualifyingResults']:
-                qual_info = race_info.copy()
-                qual_info.update({
-                    'position': int(result['position']),
-                    'driver_id': result['Driver']['driverId'],
-                    'driver_code': result['Driver']['code'],
-                    'driver_number': result['Driver']['permanentNumber'],
-                    'driver_first_name': result['Driver']['givenName'],
-                    'driver_last_name': result['Driver']['familyName'],
-                    'constructor_id': result['Constructor']['constructorId'],
-                    'constructor_name': result['Constructor']['name'],
-                    'q1_time': result.get('Q1', None),
-                    'q2_time': result.get('Q2', None),
-                    'q3_time': result.get('Q3', None)
-                })
-                qualifying.append(qual_info)
+            races = data['MRData']['RaceTable']['Races']
+            if not races:  # No more data
+                break
+                
+            for race in races:
+                race_info = {
+                    'year': int(race['season']),
+                    'round': int(race['round']),
+                    'race_name': race['raceName'],
+                    'circuit_id': race['Circuit']['circuitId'],
+                    'date': race['date']
+                }
+                
+                for result in race['QualifyingResults']:
+                    qual_info = race_info.copy()
+                    qual_info.update({
+                        'position': int(result['position']) if 'position' in result else None,
+                        'driver_id': result['Driver']['driverId'],
+                        'driver_code': result['Driver']['code'],
+                        'driver_number': result['Driver']['permanentNumber'],
+                        'driver_first_name': result['Driver']['givenName'],
+                        'driver_last_name': result['Driver']['familyName'],
+                        'constructor_id': result['Constructor']['constructorId'],
+                        'constructor_name': result['Constructor']['name'],
+                        'q1_time': result.get('Q1', None),
+                        'q2_time': result.get('Q2', None),
+                        'q3_time': result.get('Q3', None)
+                    })
+                    qualifying.append(qual_info)
+            
+            # Update offset for next page
+            offset += limit
         
         df = pd.DataFrame(qualifying)
         logger.info(f"Collected {len(df)} qualifying results for {year}")
@@ -136,7 +160,7 @@ class ErgastCollector(BaseCollector):
                 standing_info = {
                     'year': int(standing_list['season']),
                     'round': int(standing_list['round']) if standing_list['round'] else None,
-                    'position': int(standing['position']),
+                    'position': int(standing['position']) if 'position' in standing else None,
                     'points': float(standing['points']),
                     'wins': int(standing['wins']),
                     'driver_id': standing['Driver']['driverId'],
@@ -164,7 +188,7 @@ class ErgastCollector(BaseCollector):
                 standing_info = {
                     'year': int(standing_list['season']),
                     'round': int(standing_list['round']) if standing_list['round'] else None,
-                    'position': int(standing['position']),
+                    'position': int(standing['position']) if 'position' in standing else None,
                     'points': float(standing['points']),
                     'wins': int(standing['wins']),
                     'constructor_id': standing['Constructor']['constructorId'],

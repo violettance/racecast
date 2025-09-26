@@ -44,7 +44,7 @@ def main(start_year: int, end_year: int, source: str, dry_run: bool):
             collect_ergast_data(start_year, end_year)
         
         if source in ['fastf1', 'all']:
-            logger.info("FastF1 collection not implemented yet")
+            collect_fastf1_data(start_year, end_year)
             
         logger.success("Data collection completed successfully!")
         
@@ -71,6 +71,28 @@ def collect_ergast_data(start_year: int, end_year: int):
         
     except Exception as e:
         logger.error(f"Failed to collect Ergast data: {e}")
+        raise
+
+
+def collect_fastf1_data(start_year: int, end_year: int):
+    """Collect data from FastF1 API."""
+    logger.info("Collecting data from FastF1 API")
+    
+    from src.data.collectors.fastf1_collector import FastF1Collector
+    collector = FastF1Collector()
+    
+    try:
+        # Collect historical data
+        historical_data = collector.collect_historical_data(start_year, end_year)
+        
+        # Log summary
+        for data_type, df in historical_data.items():
+            logger.info(f"Collected {len(df)} {data_type} records")
+            
+        logger.success(f"FastF1 data collection completed for {start_year}-{end_year}")
+        
+    except Exception as e:
+        logger.error(f"Failed to collect FastF1 data: {e}")
         raise
 
 

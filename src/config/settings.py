@@ -4,7 +4,8 @@ import os
 from pathlib import Path
 from typing import List, Optional
 
-from pydantic import BaseSettings, validator
+from pydantic_settings import BaseSettings
+from pydantic import validator
 
 
 class Settings(BaseSettings):
@@ -31,9 +32,9 @@ class Settings(BaseSettings):
     
     # Data Collection Settings
     START_YEAR: int = 2017
-    END_YEAR: int = 2024
+    END_YEAR: int = 2025  # Extended to include 2025
     MAX_RETRIES: int = 3
-    REQUEST_DELAY: float = 0.5  # seconds between requests
+    REQUEST_DELAY: float = 10.0  # seconds between requests (very conservative for Ergast API)
     
     # Model Settings
     RANDOM_STATE: int = 42

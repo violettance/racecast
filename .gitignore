@@ -1,4 +1,19 @@
-# Python
+# 📊 Data Files
+# Cache files (FastF1 downloads)
+data/cache/
+*.ff1pkl
+
+# Raw data files (can be regenerated)
+data/raw/
+
+# Large datasets (keep only XGBoost ready dataset)
+data/processed/f1_race_prediction_dataset.csv
+data/processed/fastf1_features_engineered.csv
+
+# Keep XGBoost ready dataset and documentation
+!data/processed/xgboost/
+
+# 🐍 Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -21,48 +36,27 @@ wheels/
 *.egg
 MANIFEST
 
-# Virtual Environment
-racecast_env/
-venv/
-env/
-ENV/
-.venv/
+# 🔐 Environment
 .env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+racecast_env/
 
-# IDE
+# 📓 Jupyter Notebook
+.ipynb_checkpoints
+
+# 📊 IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# PyTorch
-*.pth
-
-# Data files
-data/raw/*.csv
-data/processed/*.csv
-data/*.db
-*.sqlite
-
-# Logs
-logs/
-*.log
-
-# Cache
-.cache/
-.pytest_cache/
-fastf1_cache/
-
-# Model artifacts
-models/training/*.pkl
-models/training/*.joblib
-models/training/*.h5
-
-# OS
+# 🗃️ OS
 .DS_Store
 .DS_Store?
 ._*
@@ -71,6 +65,10 @@ models/training/*.h5
 ehthumbs.db
 Thumbs.db
 
-# Temporary files
+# 📜 Logs
+logs/
+*.log
+
+# 🚫 Temporary
 *.tmp
 *.temp

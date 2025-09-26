@@ -31,6 +31,16 @@ class BaseCollector(ABC):
                 response = self.session.get(url, params=params, timeout=30)
                 response.raise_for_status()
                 return response.json()
+            except requests.exceptions.HTTPError as e:
+                if response.status_code == 429:  # Too Many Requests
+                    wait_time = 60 * (attempt + 1)  # Progressive wait: 60s, 120s, 180s
+                    logger.warning(f"Rate limited (429). Waiting {wait_time}s before retry {attempt + 1}")
+                    time.sleep(wait_time)
+                    continue
+                logger.warning(f"HTTP error (attempt {attempt + 1}): {e}")
+                if attempt == settings.MAX_RETRIES - 1:
+                    raise
+                time.sleep(2 ** attempt)  # exponential backoff
             except requests.exceptions.RequestException as e:
                 logger.warning(f"Request failed (attempt {attempt + 1}): {e}")
                 if attempt == settings.MAX_RETRIES - 1:
