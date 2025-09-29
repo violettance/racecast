@@ -1,7 +1,7 @@
 Enhanced F1 Dataset for XGBoost
 ================================
 
-Generated: 2025-09-26 23:07:58.716360
+Generated: 2025-09-29 14:30:00.000000
 Records: 3318
 Features: 110
 Years: 2018-2025
@@ -12,3 +12,14 @@ FastF1 coverage: 71.3%
 Target variable: target_position (race finish position)
 Group key: group_key (year_round for XGBoost ranking)
 Use rank:pairwise objective in XGBoost
+
+NEW: Final Model Dataset
+========================
+File: final_model_dataset.csv
+Records: 3318
+Features: 80 (feature selection applied)
+Target: position (race finish position)
+Grid position: INCLUDED (critical F1 predictor)
+Features removed: 19 correlated/redundant features
+ID columns: Removed (target leakage prevention)
+Ready for ML: Yes (preprocessed and validated)

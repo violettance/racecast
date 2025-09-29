@@ -49,6 +49,20 @@ racecast_env/
 # 📓 Jupyter Notebook
 .ipynb_checkpoints
 
+# 📚 Documentation
+# Ignore only the progress log file in docs
+docs/project_progress_log.md
+
+# 📦 Large/Binary Artifacts (do not push)
+# Datasets (processed CSVs that are large)
+data/processed/xgboost/*.csv
+
+# Model binaries
+models/**/*.pkl
+
+# Local optimization/database files
+notebooks/xgboost_optimization.db
+
 # 📊 IDE
 .vscode/
 .idea/
