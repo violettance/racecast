@@ -1,0 +1,111 @@
+Category,Column,Source,Type,Description,Data_Type,Missing_Count,Missing_Percentage,Completeness_Percentage
+🎯 ERGAST API - BASIC RACE DATA,year,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",int64,0,0.0,100.0
+🎯 ERGAST API - BASIC RACE DATA,round,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",int64,0,0.0,100.0
+🎯 ERGAST API - BASIC RACE DATA,date,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",object,0,0.0,100.0
+🎯 ERGAST API - BASIC RACE DATA,circuit_id,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",object,0,0.0,100.0
+🎯 ERGAST API - BASIC RACE DATA,circuit_name,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",object,0,0.0,100.0
+🎯 ERGAST API - BASIC RACE DATA,country,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",object,0,0.0,100.0
+🎯 ERGAST API - BASIC RACE DATA,driver_id,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",object,0,0.0,100.0
+🎯 ERGAST API - BASIC RACE DATA,driver_first_name,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",object,0,0.0,100.0
+🎯 ERGAST API - BASIC RACE DATA,driver_last_name,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",object,0,0.0,100.0
+🎯 ERGAST API - BASIC RACE DATA,driver_nationality,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",object,0,0.0,100.0
+🎯 ERGAST API - BASIC RACE DATA,constructor_id,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",object,0,0.0,100.0
+🎯 ERGAST API - BASIC RACE DATA,constructor_name,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",object,0,0.0,100.0
+🎯 ERGAST API - BASIC RACE DATA,constructor_nationality,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",object,0,0.0,100.0
+🎯 ERGAST API - BASIC RACE DATA,grid_position,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",float64,0,0.0,100.0
+🎯 ERGAST API - BASIC RACE DATA,position,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",int64,0,0.0,100.0
+🎯 ERGAST API - BASIC RACE DATA,target_position,Ergast API,Raw API Data,"Basic F1 race information, results, driver/team details",int64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,group_key,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",object,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,rank,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",int64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,race_size,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",int64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,position_percentile,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,driver_career_wins,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",int64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,driver_career_podiums,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",int64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,driver_career_total_points,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,driver_career_avg_points,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,driver_career_avg_position,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,driver_career_race_count,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",int64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,driver_win_rate,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,driver_podium_rate,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,driver_points_rate,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,constructor_career_wins,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",int64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,constructor_career_podiums,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",int64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,constructor_career_total_points,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,constructor_career_avg_points,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,constructor_career_avg_position,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,constructor_career_race_count,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",int64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,constructor_win_rate,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,constructor_podium_rate,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,constructor_points_rate,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,driver_track_avg_points,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,driver_track_avg_position,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,driver_track_race_count,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",int64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,constructor_track_avg_points,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,constructor_track_avg_position,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",float64,0,0.0,100.0
+📊 ERGAST FEATURE ENGINEERED,constructor_track_race_count,Ergast API (Processed),Feature Engineered,"Career statistics, track-specific performance, ratios",int64,0,0.0,100.0
+⚡ FASTF1 API - TELEMETRY DATA,driver_abbreviation,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",object,952,28.7,71.3
+⚡ FASTF1 API - TELEMETRY DATA,driver_number,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,952,28.7,71.3
+⚡ FASTF1 API - TELEMETRY DATA,fastest_lap_time,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,1007,30.3,69.7
+⚡ FASTF1 API - TELEMETRY DATA,avg_lap_time,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,1007,30.3,69.7
+⚡ FASTF1 API - TELEMETRY DATA,lap_time_std,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,1043,31.4,68.6
+⚡ FASTF1 API - TELEMETRY DATA,total_laps,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,952,28.7,71.3
+⚡ FASTF1 API - TELEMETRY DATA,avg_sector1_time,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,1021,30.8,69.2
+⚡ FASTF1 API - TELEMETRY DATA,avg_sector2_time,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,1007,30.3,69.7
+⚡ FASTF1 API - TELEMETRY DATA,avg_sector3_time,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,1007,30.3,69.7
+⚡ FASTF1 API - TELEMETRY DATA,max_speed,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,1007,30.3,69.7
+⚡ FASTF1 API - TELEMETRY DATA,avg_speed,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,1007,30.3,69.7
+⚡ FASTF1 API - TELEMETRY DATA,speed_variance,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,1021,30.8,69.2
+⚡ FASTF1 API - TELEMETRY DATA,main_compound,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",object,956,28.8,71.2
+⚡ FASTF1 API - TELEMETRY DATA,compound_changes,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,952,28.7,71.3
+⚡ FASTF1 API - TELEMETRY DATA,pit_stops,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,952,28.7,71.3
+⚡ FASTF1 API - TELEMETRY DATA,is_soft_primary,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,952,28.7,71.3
+⚡ FASTF1 API - TELEMETRY DATA,is_hard_primary,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,952,28.7,71.3
+⚡ FASTF1 API - TELEMETRY DATA,is_medium_primary,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,952,28.7,71.3
+⚡ FASTF1 API - TELEMETRY DATA,is_intermediate,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,952,28.7,71.3
+⚡ FASTF1 API - TELEMETRY DATA,is_wet,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,952,28.7,71.3
+⚡ FASTF1 API - TELEMETRY DATA,air_temp,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,3318,100.0,0.0
+⚡ FASTF1 API - TELEMETRY DATA,track_temp,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,3318,100.0,0.0
+⚡ FASTF1 API - TELEMETRY DATA,humidity,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,3318,100.0,0.0
+⚡ FASTF1 API - TELEMETRY DATA,wind_speed,FastF1 API,Raw API Data,"Telemetry data, tire strategy, weather conditions",float64,3318,100.0,0.0
+🔧 FASTF1 FEATURE ENGINEERED,compound_changes_normalized,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,952,28.7,71.3
+🔧 FASTF1 FEATURE ENGINEERED,pit_stops_normalized,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,952,28.7,71.3
+🔧 FASTF1 FEATURE ENGINEERED,low_pit_strategy,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,952,28.7,71.3
+🔧 FASTF1 FEATURE ENGINEERED,aggressive_pit_strategy,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,952,28.7,71.3
+🔧 FASTF1 FEATURE ENGINEERED,speed_consistency,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1007,30.3,69.7
+🔧 FASTF1 FEATURE ENGINEERED,speed_efficiency,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1007,30.3,69.7
+🔧 FASTF1 FEATURE ENGINEERED,total_sector_time,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1021,30.8,69.2
+🔧 FASTF1 FEATURE ENGINEERED,sector1_dominance,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1021,30.8,69.2
+🔧 FASTF1 FEATURE ENGINEERED,sector2_dominance,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1021,30.8,69.2
+🔧 FASTF1 FEATURE ENGINEERED,sector3_dominance,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1021,30.8,69.2
+🔧 FASTF1 FEATURE ENGINEERED,lap_time_efficiency,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1007,30.3,69.7
+🔧 FASTF1 FEATURE ENGINEERED,lap_time_consistency_score,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1043,31.4,68.6
+🔧 FASTF1 FEATURE ENGINEERED,temp_differential,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,3318,100.0,0.0
+🔧 FASTF1 FEATURE ENGINEERED,is_hot_conditions,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,952,28.7,71.3
+🔧 FASTF1 FEATURE ENGINEERED,is_cold_conditions,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,952,28.7,71.3
+🔧 FASTF1 FEATURE ENGINEERED,is_high_track_temp,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,952,28.7,71.3
+🔧 FASTF1 FEATURE ENGINEERED,is_high_humidity,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,952,28.7,71.3
+🔧 FASTF1 FEATURE ENGINEERED,is_low_humidity,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,952,28.7,71.3
+🔧 FASTF1 FEATURE ENGINEERED,is_windy_conditions,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,952,28.7,71.3
+🔧 FASTF1 FEATURE ENGINEERED,era_adjusted_speed,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1007,30.3,69.7
+🔧 FASTF1 FEATURE ENGINEERED,era_adjusted_laps,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,952,28.7,71.3
+🔧 FASTF1 FEATURE ENGINEERED,avg_lap_time_vs_race_avg,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1007,30.3,69.7
+🔧 FASTF1 FEATURE ENGINEERED,avg_lap_time_vs_race_best,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1007,30.3,69.7
+🔧 FASTF1 FEATURE ENGINEERED,avg_lap_time_rank_in_race,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1007,30.3,69.7
+🔧 FASTF1 FEATURE ENGINEERED,max_speed_vs_race_avg,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1007,30.3,69.7
+🔧 FASTF1 FEATURE ENGINEERED,max_speed_vs_race_best,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1007,30.3,69.7
+🔧 FASTF1 FEATURE ENGINEERED,max_speed_rank_in_race,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1007,30.3,69.7
+🔧 FASTF1 FEATURE ENGINEERED,avg_speed_vs_race_avg,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1007,30.3,69.7
+🔧 FASTF1 FEATURE ENGINEERED,avg_speed_vs_race_best,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1007,30.3,69.7
+🔧 FASTF1 FEATURE ENGINEERED,avg_speed_rank_in_race,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,1007,30.3,69.7
+🔧 FASTF1 FEATURE ENGINEERED,grid_to_finish_change,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,952,28.7,71.3
+🔧 FASTF1 FEATURE ENGINEERED,position_gained,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,952,28.7,71.3
+🔧 FASTF1 FEATURE ENGINEERED,position_lost,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",float64,952,28.7,71.3
+🔧 FASTF1 FEATURE ENGINEERED,has_fastf1_data,FastF1 API (Processed),Feature Engineered,"Normalizations, comparisons, boolean flags",bool,0,0.0,100.0
+🏁 ERA AND REGULATION FLAGS,is_2017_plus_era,Multiple Sources,Feature Engineered,"Regulation periods, special formats",int64,0,0.0,100.0
+🏁 ERA AND REGULATION FLAGS,is_2018_2021_era,Multiple Sources,Feature Engineered,"Regulation periods, special formats",float64,952,28.7,71.3
+🏁 ERA AND REGULATION FLAGS,is_2022_plus_era,Multiple Sources,Feature Engineered,"Regulation periods, special formats",int64,0,0.0,100.0
+🏁 ERA AND REGULATION FLAGS,is_2022_plus_era_fastf1,Multiple Sources,Feature Engineered,"Regulation periods, special formats",float64,952,28.7,71.3
+🏁 ERA AND REGULATION FLAGS,is_covid_season_2020,Multiple Sources,Feature Engineered,"Regulation periods, special formats",int64,0,0.0,100.0
+🏁 ERA AND REGULATION FLAGS,is_covid_season_2020_fastf1,Multiple Sources,Feature Engineered,"Regulation periods, special formats",float64,952,28.7,71.3
+🏁 ERA AND REGULATION FLAGS,has_sprint_format,Multiple Sources,Feature Engineered,"Regulation periods, special formats",int64,0,0.0,100.0
+🏁 ERA AND REGULATION FLAGS,has_sprint_format_fastf1,Multiple Sources,Feature Engineered,"Regulation periods, special formats",float64,952,28.7,71.3
