@@ -7,11 +7,12 @@ scipy==1.11.4
 requests==2.31.0
 aiohttp==3.9.1
 httpx==0.25.2
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
 
 # Machine Learning
 scikit-learn==1.3.2
 xgboost==2.0.2
-lightgbm==4.1.0
 optuna==3.4.0
 
 # F1 Data APIs
@@ -22,9 +23,11 @@ ergast-py==1.0.0
 psycopg2-binary==2.9.9
 sqlalchemy==2.0.23
 asyncpg==0.29.0
+alembic==1.13.2
 
 # Data Validation
 pydantic==2.5.1
+pydantic-settings==2.0.3
 marshmallow==3.20.1
 
 # Visualization & Analysis
