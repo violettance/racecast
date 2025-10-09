@@ -11,7 +11,6 @@ racecast_env/
 data/raw/
 data/extended/
 notebooks/
-models/
 logs/
 results/
 images/
