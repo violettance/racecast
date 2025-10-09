@@ -71,7 +71,20 @@ Generate race predictions for a specific round or the last race of the season.
 - `country` (optional): Country name
 - `race_name` (optional): Race name
 
-**Note:** If no specific round/country/race_name is provided, the API will automatically fetch the last race from Ergast API (`https://api.jolpi.ca/ergast/f1/current/last.json`) and predict that race.
+**Important:** The API requires qualifying results to make predictions. If no specific round/country/race_name is provided, the API will attempt to find a race with available qualifying data, but this may fail if no qualifying results are available.
+
+**Error Handling:**
+- **400 Bad Request:** If qualifying results are not available for the specified round
+- **500 Internal Server Error:** For other prediction failures
+
+**Example Error Response:**
+```json
+{
+  "detail": "No qualifying results available for 2025 Round 19. Qualifying session may not have been completed yet."
+}
+```
+
+**Best Practice:** Always specify a `round` parameter when making predictions to avoid ambiguity. The API is designed to work with completed qualifying sessions.
 
 **Response:**
 ```json

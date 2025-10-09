@@ -77,9 +77,12 @@ class RankerPredictor:
         # Fetch qualifying data for specific round only (not entire season!)
         qual = collector.collect_qualifying_round(year, round_number)
         
+        # Check if qualifying results exist
+        if qual.empty:
+            raise ValueError(f"No qualifying results available for {year} Round {round_number}. Qualifying session may not have been completed yet.")
+        
         # Fetch race info for specific round only
-        races = collector.collect_races(year)
-        race_row = races[races["round"] == round_number].iloc[0]
+        race_row = collector.collect_race_round(year, round_number)
         country = race_row.get("country", None)
 
         rows = []

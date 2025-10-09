@@ -99,38 +99,18 @@ class PredictResponse(BaseModel):
 
 @app.post("/predict", response_model=PredictResponse, dependencies=[Depends(require_api_key)])
 def predict(req: PredictRequest):
-    # If no specific round/country provided, get the last race from current/last.json
+    # If no specific round/country provided, let predictor find the right race
     if req.round is None and req.country is None and req.race_name is None:
-        import requests
-        try:
-            # Get the actual last race from Ergast API
-            response = requests.get("https://api.jolpi.ca/ergast/f1/current/last.json")
-            if response.status_code == 200:
-                data = response.json()
-                race = data['MRData']['RaceTable']['Races'][0]
-                req.round = int(race['round'])
-                req.country = race['Circuit']['Location']['country']
-                req.race_name = race['raceName']
-            else:
-                # Fallback to old method
-                from src.data.collectors.ergast_collector import ErgastCollector
-                collector = ErgastCollector()
-                races = collector.collect_races(req.year)
-                if not races.empty:
-                    last_race = races.iloc[-1]
-                    req.round = int(last_race["round"])
-                    req.country = last_race.get("country", "")
-        except Exception:
-            # Fallback to old method
-            from src.data.collectors.ergast_collector import ErgastCollector
-            collector = ErgastCollector()
-            races = collector.collect_races(req.year)
-            if not races.empty:
-                last_race = races.iloc[-1]
-                req.round = int(last_race["round"])
-                req.country = last_race.get("country", "")
+        # Predictor will automatically find the race with qualifying results available
+        # This works for any day - it finds the race that can be predicted
+        pass
     
-    rnd, country, items = predictor.predict(year=req.year, round=req.round, country=req.country, race_name=req.race_name)
+    try:
+        rnd, country, items = predictor.predict(year=req.year, round=req.round, country=req.country, race_name=req.race_name)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
 
     # Always persist to database if available
     if engine is not None and SessionLocal is not None:

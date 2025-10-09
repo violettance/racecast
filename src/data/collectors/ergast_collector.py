@@ -39,8 +39,32 @@ class ErgastCollector(BaseCollector):
             races.append(race_info)
         
         df = pd.DataFrame(races)
-        logger.info(f"Collected {len(df)} races for {year}")
+        logger.info(f"Collected {len(df)} races for {year} (full season schedule)")
         return df
+    
+    def collect_race_round(self, year: int, round: int) -> dict:
+        """Collect race information for a specific round only."""
+        url = f"{self.base_url}/{year}/{round}.json"
+        data = self._make_request(url)
+        
+        race = data['MRData']['RaceTable']['Races'][0]
+        race_info = {
+            'year': int(race['season']),
+            'round': int(race['round']),
+            'race_name': race['raceName'],
+            'circuit_id': race['Circuit']['circuitId'],
+            'circuit_name': race['Circuit']['circuitName'],
+            'country': race['Circuit']['Location']['country'],
+            'locality': race['Circuit']['Location']['locality'],
+            'latitude': float(race['Circuit']['Location']['lat']),
+            'longitude': float(race['Circuit']['Location']['long']),
+            'date': race['date'],
+            'time': race.get('time', ''),
+            'url': race['url']
+        }
+        
+        logger.info(f"Collected race info for {year} Round {round}")
+        return race_info
     
     def collect_results(self, year: int) -> pd.DataFrame:
         """Collect race results for a season."""
