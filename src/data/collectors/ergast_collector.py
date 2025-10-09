@@ -149,6 +149,46 @@ class ErgastCollector(BaseCollector):
         logger.info(f"Collected {len(df)} qualifying results for {year}")
         return df
     
+    def collect_qualifying_round(self, year: int, round: int) -> pd.DataFrame:
+        """Collect qualifying results for a specific round."""
+        url = f"{self.base_url}/{year}/{round}/qualifying.json"
+        data = self._make_request(url)
+        
+        qualifying = []
+        races = data['MRData']['RaceTable']['Races']
+        
+        for race in races:
+            race_info = {
+                'year': int(race['season']),
+                'round': int(race['round']),
+                'race_name': race['raceName'],
+                'circuit_id': race['Circuit']['circuitId'],
+                'date': race['date']
+            }
+            
+            for result in race['QualifyingResults']:
+                qual_info = race_info.copy()
+                qual_info.update({
+                    'position': int(result['position']) if 'position' in result else None,
+                    'driver_id': result['Driver']['driverId'],
+                    'driver_code': result['Driver']['code'],
+                    'driver_number': result['Driver']['permanentNumber'],
+                    'driver_first_name': result['Driver']['givenName'],
+                    'driver_last_name': result['Driver']['familyName'],
+                    'driver_nationality': result['Driver']['nationality'],
+                    'constructor_id': result['Constructor']['constructorId'],
+                    'constructor_name': result['Constructor']['name'],
+                    'constructor_nationality': result['Constructor']['nationality'],
+                    'q1_time': result.get('Q1', None),
+                    'q2_time': result.get('Q2', None),
+                    'q3_time': result.get('Q3', None)
+                })
+                qualifying.append(qual_info)
+        
+        df = pd.DataFrame(qualifying)
+        logger.info(f"Collected {len(df)} qualifying results for {year} round {round}")
+        return df
+    
     def collect_driver_standings(self, year: int) -> pd.DataFrame:
         """Collect driver championship standings for a season."""
         url = f"{self.base_url}/{year}/driverstandings.json"

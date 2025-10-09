@@ -29,6 +29,9 @@ predictor = RankerPredictor()
 
 @app.on_event("startup")
 def on_startup():
+    # Load model on startup
+    predictor.load()
+    
     # Create tables if DATABASE_URL configured
     if engine is not None:
         Base.metadata.create_all(bind=engine)
@@ -44,7 +47,28 @@ def healthz():
     return {
         "status": "ok",
         "time": datetime.now(timezone.utc).isoformat(),
-        "model_loaded": True,
+        "model_loaded": predictor._model is not None,
+    }
+
+
+@app.get("/last_race")
+def get_last_race(year: int = 2025):
+    """Get the last race of the season."""
+    from src.data.collectors.ergast_collector import ErgastCollector
+    collector = ErgastCollector()
+    races = collector.collect_races(year)
+    if races.empty:
+        raise HTTPException(status_code=404, detail="No races found for the given year")
+    
+    last_race = races.iloc[-1]
+    return {
+        "year": int(last_race["year"]),
+        "round": int(last_race["round"]),
+        "race_name": last_race["race_name"],
+        "country": last_race["country"],
+        "circuit_name": last_race["circuit_name"],
+        "date": last_race["date"],
+        "time": last_race.get("time", "")
     }
 
 
@@ -56,7 +80,6 @@ class PredictRequest(BaseModel):
     round: Optional[int] = None
     country: Optional[str] = None
     race_name: Optional[str] = None
-    persist: bool = False
 
 
 class PredictionItemOut(BaseModel):
@@ -76,11 +99,41 @@ class PredictResponse(BaseModel):
 
 @app.post("/predict", response_model=PredictResponse, dependencies=[Depends(require_api_key)])
 def predict(req: PredictRequest):
+    # If no specific round/country provided, get the last race from current/last.json
+    if req.round is None and req.country is None and req.race_name is None:
+        import requests
+        try:
+            # Get the actual last race from Ergast API
+            response = requests.get("https://api.jolpi.ca/ergast/f1/current/last.json")
+            if response.status_code == 200:
+                data = response.json()
+                race = data['MRData']['RaceTable']['Races'][0]
+                req.round = int(race['round'])
+                req.country = race['Circuit']['Location']['country']
+                req.race_name = race['raceName']
+            else:
+                # Fallback to old method
+                from src.data.collectors.ergast_collector import ErgastCollector
+                collector = ErgastCollector()
+                races = collector.collect_races(req.year)
+                if not races.empty:
+                    last_race = races.iloc[-1]
+                    req.round = int(last_race["round"])
+                    req.country = last_race.get("country", "")
+        except Exception:
+            # Fallback to old method
+            from src.data.collectors.ergast_collector import ErgastCollector
+            collector = ErgastCollector()
+            races = collector.collect_races(req.year)
+            if not races.empty:
+                last_race = races.iloc[-1]
+                req.round = int(last_race["round"])
+                req.country = last_race.get("country", "")
+    
     rnd, country, items = predictor.predict(year=req.year, round=req.round, country=req.country, race_name=req.race_name)
 
-    if req.persist:
-        if engine is None or SessionLocal is None:
-            raise HTTPException(status_code=503, detail="DATABASE_URL is not configured")
+    # Always persist to database if available
+    if engine is not None and SessionLocal is not None:
         db = SessionLocal()
         try:
             group_key = f"{req.year}_{rnd}"
@@ -175,5 +228,28 @@ def update_results(req: UpdateResultsRequest):
     finally:
         db.close()
     return {"inserted": inserted}
+
+
+@app.get("/results", dependencies=[Depends(require_api_key)])
+def get_results(year: int, round: int):
+    if engine is None or SessionLocal is None:
+        raise HTTPException(status_code=503, detail="DATABASE_URL is not configured")
+    db = SessionLocal()
+    try:
+        rows = db.query(Result).filter(Result.year == year, Result.round == round).order_by(Result.position.asc()).all()
+    finally:
+        db.close()
+    return {
+        "year": year,
+        "round": round,
+        "results": [
+            {
+                "driver": r.driver_code,
+                "position": r.position,
+                "points": r.points,
+            }
+            for r in rows
+        ],
+    }
 
 

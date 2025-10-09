@@ -74,8 +74,10 @@ class RankerPredictor:
         assert self._header_columns is not None
         header_cols = self._header_columns
 
-        qual = collector.collect_qualifying(year)
-        qual = qual[qual["round"] == round_number].copy()
+        # Fetch qualifying data for specific round only (not entire season!)
+        qual = collector.collect_qualifying_round(year, round_number)
+        
+        # Fetch race info for specific round only
         races = collector.collect_races(year)
         race_row = races[races["round"] == round_number].iloc[0]
         country = race_row.get("country", None)
@@ -83,19 +85,38 @@ class RankerPredictor:
         rows = []
         for _, r in qual.iterrows():
             row = {col: np.nan for col in header_cols}
+            
+            # Basic race info
             row["year"] = int(year)
             row["round"] = int(round_number)
             row["country"] = country
+            row["group_key"] = f"{int(year)}_{int(round_number)}"
+            
+            # Driver info
             row["driver_nationality"] = r.get("driver_nationality", np.nan)
-            row["constructor_nationality"] = np.nan
-            row["grid_position"] = r.get("position", np.nan)
-            row["has_sprint_format"] = 1 if "Sprint" in str(race_row.get("race_name", "")) else 0
             row["driver_abbreviation"] = r.get("driver_code", np.nan)
             try:
                 row["driver_number"] = int(r.get("driver_number")) if pd.notna(r.get("driver_number")) else np.nan
             except Exception:
                 row["driver_number"] = np.nan
-            row["group_key"] = f"{int(year)}_{int(round_number)}"
+            
+            # Grid position (most important!)
+            row["grid_position"] = r.get("position", np.nan)
+            
+            # Race format
+            row["has_sprint_format"] = 1 if "Sprint" in str(race_row.get("race_name", "")) else 0
+            
+            # Era flags
+            row["is_2017_plus_era"] = 1 if year >= 2017 else 0
+            row["is_2022_plus_era"] = 1 if year >= 2022 else 0
+            row["is_covid_season_2020"] = 1 if year == 2020 else 0
+            
+            # Race size
+            row["race_size"] = len(qual)
+            
+            # All other features as NaN (model will use defaults)
+            # Historical data is already learned by the model during training!
+            
             rows.append(row)
 
         df = pd.DataFrame(rows)
@@ -134,6 +155,7 @@ class RankerPredictor:
 
         items = [PredictionItem(driver=str(r.driver), grid=int(r.grid) if pd.notna(r.grid) else None, score=float(r.score), predicted_rank=int(r.predicted_rank)) for r in out.itertuples(index=False)]
         return round_number, country_resolved, items
+
 
 
 

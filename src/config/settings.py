@@ -3,6 +3,10 @@
 import os
 from pathlib import Path
 from typing import List, Optional
+from dotenv import load_dotenv
+
+# Load .env file
+load_dotenv()
 
 
 class Settings:

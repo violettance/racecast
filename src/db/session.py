@@ -1,9 +1,14 @@
 from __future__ import annotations
 
 from typing import Generator, Optional
+import os
+from dotenv import load_dotenv
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
+
+# Load .env file
+load_dotenv()
 
 from src.config.settings import settings
 
