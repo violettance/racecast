@@ -57,8 +57,9 @@ docs/project_progress_log.md
 # Datasets (processed CSVs that are large)
 data/processed/xgboost/*.csv
 
-# Model binaries
+# Model binaries (keep only ranker model for deployment)
 models/**/*.pkl
+!models/xgboost/xgboost_ranker_model.pkl
 
 # Local optimization/database files
 notebooks/xgboost_optimization.db
