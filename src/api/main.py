@@ -182,32 +182,63 @@ class UpdateResultsRequest(BaseModel):
 def update_results(req: UpdateResultsRequest):
     if engine is None or SessionLocal is None:
         raise HTTPException(status_code=503, detail="DATABASE_URL is not configured")
-    # Fetch actual results via Ergast and persist
-    from src.data.collectors.ergast_collector import ErgastCollector
-
-    collector = ErgastCollector()
-    results = collector.collect_results(req.year)
-    rows = results[(results["round"] == req.round) & results["position"].notna()].copy()
-    inserted = 0
-    db = SessionLocal()
+    
     try:
-        for _, r in rows.iterrows():
-            rec = Result(
-                year=req.year,
-                round=req.round,
-                driver_code=str(r.get("driver_code")),
-                position=int(r.get("position")) if pd.notna(r.get("position")) else None,
-                points=float(r.get("points")) if pd.notna(r.get("points")) else None,
+        # Fetch actual results via Ergast and persist
+        from src.data.collectors.ergast_collector import ErgastCollector
+
+        collector = ErgastCollector()
+        results = collector.collect_results(req.year)
+        rows = results[(results["round"] == req.round) & results["position"].notna()].copy()
+        
+        # Check if no results found for this round
+        if rows.empty:
+            raise HTTPException(
+                status_code=400, 
+                detail=f"No race results available for {req.year} Round {req.round}. Race may not have been completed yet."
             )
-            try:
-                db.add(rec)
-                db.commit()
-                inserted += 1
-            except Exception:
-                db.rollback()
-    finally:
-        db.close()
-    return {"inserted": inserted}
+        
+        # Early exit optimization: if first 5 rows are empty, don't process the rest
+        if len(rows) >= 5:
+            first_five = rows.head(5)
+            if first_five["position"].isna().all():
+                raise HTTPException(
+                    status_code=400, 
+                    detail=f"No race results available for {req.year} Round {req.round}. Race may not have been completed yet."
+                )
+        # If we have data, continue processing all rows
+        
+        inserted = 0
+        db = SessionLocal()
+        try:
+            for _, r in rows.iterrows():
+                rec = Result(
+                    year=req.year,
+                    round=req.round,
+                    driver_code=str(r.get("driver_code")),
+                    position=int(r.get("position")) if pd.notna(r.get("position")) else None,
+                    points=float(r.get("points")) if pd.notna(r.get("points")) else None,
+                )
+                try:
+                    db.add(rec)
+                    db.commit()
+                    inserted += 1
+                except Exception:
+                    db.rollback()
+        finally:
+            db.close()
+        
+        return {"inserted": inserted}
+        
+    except HTTPException:
+        # Re-raise HTTP exceptions (like our 400 error above)
+        raise
+    except Exception as e:
+        # Handle other errors (network, API issues, etc.)
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Failed to fetch race results: {str(e)}"
+        )
 
 
 @app.get("/results", dependencies=[Depends(require_api_key)])
