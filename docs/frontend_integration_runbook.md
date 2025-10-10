@@ -24,7 +24,7 @@ Startup behavior
 
 ## 2) API contract for the frontend
 
-Base URL: your deployed backend (temporary Back4App URL or a permanent domain).
+Base URL: your deployed backend (Render URL).
 
 Auth: If `API_KEY` is set, include `X-API-Key` for protected endpoints.
 

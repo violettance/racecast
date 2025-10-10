@@ -16,7 +16,7 @@
   - Prediction and actual results will be stored here.
   - Tables: `races`, `predictions`, `results`, `driver_profiles`.
 
-- **Backend (FastAPI, Back4App)**
+- **Backend (FastAPI, Render)**
 
   - Will run the model and provide API endpoints.
   - Endpoint examples: `/predict`, `/update_results`, `/healthz`.
@@ -56,7 +56,7 @@
 2. Load model and return JSON predictions from `/predict` endpoint.
 3. Connect to Neon DB and write predictions.
 4. Write actual results to DB after race (`/update_results`).
-5. Deploy backend to Back4App.
+5. Deploy backend to Render.
 
 ### Stage 3 — Frontend
 
@@ -79,7 +79,7 @@
 ## 4. Technology Choices
 
 - **Database:** Neon (serverless Postgres, free tier sufficient).
-- **Backend:** FastAPI (Python, hosted on Back4App).
+- **Backend:** FastAPI (Python, hosted on Render).
 - **Frontend:** Next.js (hosted on Vercel). Server state management with React Query.
 - **ML:** XGBoost baseline, future LightGBM/Bayesian models. LSTM/GRU option for advanced telemetry.
 - **EDA & prototype:** Jupyter Notebook + optional DuckDB (local analytics).

@@ -1,4 +1,6 @@
-# Back4App Deployment Guide (RaceCast Backend)
+# Back4App Deployment Guide (RaceCast Backend) - DEPRECATED
+
+**NOTE: This deployment method was abandoned because Back4App only provides temporary URLs and was not a suitable choice for the project. We migrated to Render for better stability and permanent URLs.**
 
 ## Requirements
 - GitHub repo connected

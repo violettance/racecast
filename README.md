@@ -129,6 +129,14 @@ docker run -p 8000:8000 \
 - **Regulation Changes**: 2017 (wider cars) & 2022 (ground effect)
 - **Race Types**: Grand Prix, Sprint races, Qualifying sessions
 
+## 🏗️ System Design
+
+![System Architecture](system_design/racecast_system_architecture.png)
+
+**Architecture Overview**: Multi-tier system with ML pipeline, FastAPI backend, and Next.js frontend deployed on Render and Vercel.
+
+📋 **[Complete System Design Document](system_design/system_design.md)** - Detailed technical specifications, architecture decisions, and implementation details.
+
 ## 🔧 Technical Stack
 
 - **Language**: Python 3.9+
@@ -138,7 +146,7 @@ docker run -p 8000:8000 \
 - **Data Processing**: pandas, numpy
 - **API Clients**: requests, aiohttp
 - **Logging**: loguru
-- **Deployment**: Docker, Back4App
+- **Deployment**: Docker, Render
 
 ## 📈 Model Strategy
 
